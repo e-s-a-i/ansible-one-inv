@@ -78,11 +78,23 @@ for vm in vm_pool.VM:
         # add host to group
         groups[label].append(hostname)
 
+    # Get host group
+    group = vm.GNAME
+
+    # create new group if the previous doesn't exist
+    if not groups.get(group):
+        groups[group] = []
+
+    # add host to host group
+    groups[group].append(hostname)
+
+
     # add host to default group
     groups['All'].append(hostname)
 
     # save host vars
     hosts[hostname] = vm.USER_TEMPLATE
+    hosts[hostname].update(vm.TEMPLATE)
 
     # custom ssh port
     ssh_port = functions.get_ssh_port(vm)
