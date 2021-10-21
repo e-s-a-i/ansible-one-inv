@@ -24,8 +24,8 @@ def get_hostname(vm):
 
     if not config.USE_VM_NAME:
         return get_vm_ip(vm)
-
-    return vm.NAME
+    # Return FQDN as the VM knows it
+    return vm.TEMPLATE.get('CONTEXT').get('SET_HOSTNAME')
 
 
 def get_vm_ip(vm):
